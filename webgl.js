@@ -25,7 +25,7 @@ function init() {
     const geometry = new THREE.SphereGeometry(300, 30, 30);
     // マテリアルにテクスチャーを設定
     const material = new THREE.MeshStandardMaterial({
-        color: 0xffffff
+        map: new THREE.TextureLoader().load("./images/earthmap1k.jpg")
     });
     // メッシュを作成
     const mesh = new THREE.Mesh(geometry, material);
