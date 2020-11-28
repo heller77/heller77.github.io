@@ -20,7 +20,7 @@ function init() {
     camera.position.set(0, 0, +1000);
     console.log("na");
 
-
+    //<--
     // 球体を作成
     const geometry = new THREE.SphereGeometry(300, 30, 30);
     // マテリアルにテクスチャーを設定
@@ -29,9 +29,12 @@ function init() {
     });
     // メッシュを作成
     const mesh = new THREE.Mesh(geometry, material);
-
     // 3D空間にメッシュを追加
     scene.add(mesh);
+    //-->
+
+
+
     // 平行光源
     const directionalLight = new THREE.DirectionalLight(0xffffff);
     directionalLight.position.set(1, 1, 1);
@@ -42,6 +45,7 @@ function init() {
 
     // 毎フレーム時に実行されるループイベントです
     function tick() {
+        mesh.rotation.y += 0.01;
         // レンダリング
         renderer.render(scene, camera);
 
