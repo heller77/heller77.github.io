@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>glsl editor tukurita</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
+  <meta charset="utf-8" />
+  <title>glsl editor tukurita</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
 
 
 
@@ -14,21 +14,55 @@
 </head>
 
 <body>
-    <p>地球儀</p>
-    <canvas id="myCanvas"></canvas>
+  <p>地球儀</p>
+  <canvas id="myCanvas"></canvas>
 
-    <textarea rows="10" cols="60" id="inputfield">  void main() {
-        vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-        vec4 mvPosition =  viewMatrix * worldPosition;
-        gl_Position = projectionMatrix * mvPosition;
+  <textarea  rows="10" cols="60" id="vertex"> 
+ 
       }</textarea>
-    <input type="button" value="run" id="runButton">
+  <input type="button" value="run" id="runButton">
 
-    <textarea rows="10" cols="60" id="fragment">  void main() {
+  <textarea rows="10" cols="60" id="fragment">  void main() {
         gl_FragColor = vec4(1.0,0.0, 0.2, 1.0);
       }</textarea>
-    <script src="./webgl.js"></script>
+  <script src="./webgl.js"></script>
+  <script>
 
+  let textarea =document.getElementById("vertex");
+  textarea.value="void main() {\n\tvec4 worldPosition = modelMatrix * vec4( position, 1.0 );\n\tvec4 mvPosition =  viewMatrix * worldPosition;\n\tgl_Position = projectionMatrix * mvPosition;\n}"
+  textarea = document.getElementById("fragment");
+  textarea.value=" void main() {\n\tgl_FragColor = vec4(1.0,0.0, 0.2, 1.0);\n}"
+  </script>
+
+  <script>
+  
+  function OnTabKey( e, obj ){
+  
+    // タブキーが押された時以外は即リターン
+    if( e.keyCode!=9 ){ return; }
+  
+    // タブキーを押したときのデフォルトの挙動を止める
+    e.preventDefault();
+  
+    // 現在のカーソルの位置と、カーソルの左右の文字列を取得しておく
+    var cursorPosition = obj.selectionStart;
+    var cursorLeft     = obj.value.substr( 0, cursorPosition );
+    var cursorRight    = obj.value.substr( cursorPosition, obj.value.length );
+  
+    // テキストエリアの中身を、
+    // 「取得しておいたカーソルの左側」+「タブ」+「取得しておいたカーソルの右側」
+    // という状態にする。
+    obj.value = cursorLeft+"\t"+cursorRight;
+  
+    // カーソルの位置を入力したタブの後ろにする
+    obj.selectionEnd = cursorPosition+1;
+  }
+  
+  // 対象となるテキストエリアにonkeydownイベントを追加する
+  document.getElementById( "vertex" ).onkeydown = function( e ){ OnTabKey( e, this ); }
+  document.getElementById( "fragment" ).onkeydown = function( e ){ OnTabKey( e, this ); }
+
+  </script>
 </body>
 
 </html>

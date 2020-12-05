@@ -40,15 +40,15 @@ function init() {
 
     // カメラを作成
     const camera = new THREE.PerspectiveCamera(45, width / height);
-    camera.position.set(0, 0, +1000);
-    console.log(get_shader("inputfield"));
+    camera.position.set(0, 0, +1400);
+
 
     //<--
     // 球体を作成
     const geometry = new THREE.PlaneGeometry(950, 900);
     const material = new THREE.ShaderMaterial({
-
-        vertexShader: get_shader("inputfield"),
+        uniforms: {},
+        vertexShader: get_shader("vertex"),
         fragmentShader: get_shader("fragment")
     });
     // メッシュを作成
@@ -69,7 +69,7 @@ function init() {
 
     // 毎フレーム時に実行されるループイベントです
     function tick() {
-        // mesh.rotation.y += 0.01;
+        mesh.rotation.y += 0.03;
         // レンダリング
         renderer.render(scene, camera);
 
