@@ -18,21 +18,27 @@
   <canvas id="myCanvas"></canvas>
 
   <textarea  rows="10" cols="60" id="vertex"> 
- 
-      }</textarea>
+    void main() {
+      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+      vec4 mvPosition =  viewMatrix * worldPosition;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+      </textarea>
   <input type="button" value="run" id="runButton">
 
-  <textarea rows="10" cols="60" id="fragment">  void main() {
-        gl_FragColor = vec4(1.0,0.0, 0.2, 1.0);
-      }</textarea>
+  <textarea rows="10" cols="60" id="fragment"> 
+    void main() {
+      gl_FragColor = vec4(1.0,0.0, 0.2, 1.0);
+    }
+  </textarea>
   <script src="./webgl.js"></script>
-  <script>
+  <!-- <script>
 
   let textarea =document.getElementById("vertex");
   textarea.value="void main() {\n\tvec4 worldPosition = modelMatrix * vec4( position, 1.0 );\n\tvec4 mvPosition =  viewMatrix * worldPosition;\n\tgl_Position = projectionMatrix * mvPosition;\n}"
   textarea = document.getElementById("fragment");
   textarea.value=" void main() {\n\tgl_FragColor = vec4(1.0,0.0, 0.2, 1.0);\n}"
-  </script>
+  </script> -->
 
   <script>
   
